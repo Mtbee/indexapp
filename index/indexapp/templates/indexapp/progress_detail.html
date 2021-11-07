@@ -1,0 +1,21 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+<h1>製作進行 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{Progress.number}}</p>
+    <p>コード {{Progress.code}}</p>
+    <p>品名 {{Progress.name}}</p>
+    <p>数量 {{Progress.quantity}} {{Progress.unit}}</p>
+    <p>発注日 {{Progress.order}}</p>
+    <p>希望納期 {{Progress.prefer}}</p>
+    <p>確定納期 {{Progress.fixed}}</p>
+    <p>備考 {{Progress.description}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

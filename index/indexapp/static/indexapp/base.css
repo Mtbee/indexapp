@@ -1,0 +1,43 @@
+header {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    background-color: lightblue;
+}
+
+.btn { 
+    width: 100px;
+    height: 30px;
+    margin-left: 5%;
+    background-color: lightsteelblue;
+    border-radius: 3px;
+    box-shadow: 3px 3px gray;
+    text-align: center;
+    line-height: 30px;
+}
+
+.btn a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: lightslategray;
+    text-align: left;
+}
+
+th, td {
+    border: solid 1px;
+}
+
+.detail {
+    margin-left: 5%;
+}
+
