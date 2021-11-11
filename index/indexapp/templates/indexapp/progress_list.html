@@ -1,12 +1,18 @@
 {% extends 'indexapp/base.html' %}
 
 {% block header %}
-<h1>製作進行index</h1>
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>製作進行index</h1>
 {% endblock header %}
 
 {% block content %}
-<p class="btn"><a href="{% url 'create' %}">新規作成</a></p>
-<p class="btn"><a href="{% url 'csv' %}">csv出力</a></p>
+<div class="menu">
+    <p class="btn"><a href="{% url 'create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'logout' %}">ログアウト</a></p>
+</div>
 <table>
     <thead>
         <tr>

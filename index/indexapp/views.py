@@ -1,10 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from .models import Progress
 from django.http import HttpResponse
 import csv
-import io
 
 # Create your views here.
 class ProgressIndex(ListView):
@@ -12,24 +11,54 @@ class ProgressIndex(ListView):
     context_object_name = "progress"
     ordering = ["-number"]
 
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
 class ProgressDetail(DetailView):
     model = Progress
-    context_object_name = "Progress"    
+    context_object_name = "Progress"
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
 
 class ProgressCreate(CreateView):
     model = Progress
     fields = "__all__"
-    success_url = reverse_lazy("list")    
+    success_url = reverse_lazy("list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
 
 class ProgressUpdate(UpdateView):
     model = Progress
     fields = "__all__"
-    success_url = reverse_lazy("list")    
+    success_url = reverse_lazy("list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
 
 class ProgressDelete(DeleteView):
     model = Progress
     context_object_name = "progress"
-    success_url = reverse_lazy("list")    
+    success_url = reverse_lazy("list")
+
+    def get(self, request, pk):
+        # スーパーユーザーでなければログインページ
+        if not self.request.user.is_superuser:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
 
 def csvdownload(request):
     response = HttpResponse(content_type="text/csv; charset=cp932")
@@ -57,4 +86,4 @@ def csvdownload(request):
             post.prefer,
             post.fixed,
             post.description])
-    return response    
+    return response

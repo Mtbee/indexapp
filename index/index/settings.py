@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-vr&72kbk@e_t^h&r05t0*epfcf6x$+s()u#8r#4q0ztcfjmh54
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com']
 
 
 # Application definition
@@ -124,3 +124,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_ROOT = "/home/natsunosuzuki/Indexapp/index/indexapp/static"
+LOGOUT_REDIRECT_URL = '/accounts/login/?next=/'
