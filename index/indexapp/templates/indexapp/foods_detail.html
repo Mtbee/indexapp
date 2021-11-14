@@ -1,0 +1,17 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+<h1>タマノイフーズ原料登録 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{Foods.number}}</p>
+    <p>コード {{Foods.code}}</p>
+    <p>品名 {{Foods.name}}</p>
+    <p>備考 {{Foods.description}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'foods_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

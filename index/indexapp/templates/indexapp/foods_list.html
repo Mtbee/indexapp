@@ -4,13 +4,13 @@
     {% if request.user.is_authenticated %}
         <p>{{ user.username }}さんがログイン中です</p>
     {% endif %}
-    <h1>製作進行index</h1>
+    <h1>TF原料登録index</h1>
 {% endblock header %}
 
 {% block content %}
 <div class="menu">
-    <p class="btn"><a href="{% url 'progress_create' %}">新規作成</a></p>
-    <p class="btn"><a href="{% url 'progress_csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'foods_create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'foods_csv' %}">csv出力</a></p>
     <p class="btn"><a href="{% url 'logout' %}">ログアウト</a></p>
     <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
 </div>
@@ -27,15 +27,15 @@
         </tr>
     </thead>
     <tbody>
-        {% for progress in progress %}
+        {% for foods in foods %}
         <tr>
-            <td>{{ progress.number }}</td>
-            <td>{{ progress.code }}</td>
-            <td>{{ progress.name }}</td>
-            <td>{{ progress.description }}</td>
-            <td><a href="{% url 'progress_detail' progress.pk %}">詳細</a></td>
-            <td><a href="{% url 'progress_update' progress.pk %}">編集</a></td>
-            <td><a href="{% url 'progress_delete' progress.pk %}">削除</a></td>
+            <td>{{ foods.number }}</td>
+            <td>{{ foods.code }}</td>
+            <td>{{ foods.name }}</td>
+            <td>{{ foods.description }}</td>
+            <td><a href="{% url 'foods_detail' foods.pk %}">詳細</a></td>
+            <td><a href="{% url 'foods_update' foods.pk %}">編集</a></td>
+            <td><a href="{% url 'foods_delete' foods.pk %}">削除</a></td>
         </tr>
         {% endfor %}
     </tbody>
