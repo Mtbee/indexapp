@@ -4,7 +4,9 @@ from django.urls import reverse_lazy
 from .models import Progress, Registration, Foods
 from django.http import HttpResponse
 import csv
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def top(request):
     return render(request, 'top.html')
 
@@ -154,15 +156,25 @@ def Registration_csvdownload(request):
         "No.",
         "コード",
         "品名",
+        "内容",
+        "仕入先",
         "備考",
-        
+        "依頼書作成",
+        "カクテル登録",
+        "リスト更新"    
     ])
     for post in Registration.objects.all():
         writer.writerow([
             post.number,
             post.code,
             post.name,
-            post.description])
+            post.category,
+            post.supplier,
+            post.description,
+            post.writer,
+            post.register,
+            post.update
+            ])
     return response
 
 
@@ -227,13 +239,25 @@ def Foods_csvdownload(request):
         "No.",
         "コード",
         "品名",
+        "内容",
+        "仕入先",
+        "得意先",
         "備考",
-        
+        "依頼書作成",
+        "カクテル登録",
+        "リスト更新"  
     ])
     for post in Foods.objects.all():
         writer.writerow([
             post.number,
             post.code,
             post.name,
-            post.description])
+            post.category,
+            post.supplier,
+            post.cutomer,
+            post.description,
+            post.writer,
+            post.register,
+            post.update
+            ])
     return response

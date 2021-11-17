@@ -1,15 +1,24 @@
 {% extends 'indexapp/base.html' %}
 
 {% block header %}
-<h1>タマノイフーズ原料登録 詳細</h1>
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>TF登録 詳細</h1>
 {% endblock header %}
 
 {% block content %}
 <div class="detail">
-    <p>No. {{Foods.number}}</p>
-    <p>コード {{Foods.code}}</p>
-    <p>品名 {{Foods.name}}</p>
-    <p>備考 {{Foods.description}}</p>
+    <p>No. {{foods.number}}</p>
+    <p>コード {{foods.code}}</p>
+    <p>品名 {{foods.name}}</p>
+    <p>内容 {{foods.category}}</p>
+    <p>仕入先 {{foods.supplier}}</p>
+    <p>得意先 {{foods.supplier}}</p>
+    <p>備考 {{foods.description}}</p>
+    <p>依頼書作成 {{foods.writer}}</p>
+    <p>カクテル登録 {{foods.register}}</p>
+    <p>リスト更新 {{foods.update}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'foods_list' %}">一覧に戻る</a></p>

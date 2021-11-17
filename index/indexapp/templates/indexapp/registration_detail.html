@@ -1,15 +1,23 @@
 {% extends 'indexapp/base.html' %}
 
 {% block header %}
-<h1>原料登録 詳細</h1>
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>TN登録 詳細</h1>
 {% endblock header %}
 
 {% block content %}
 <div class="detail">
-    <p>No. {{Registration.number}}</p>
-    <p>コード {{Registration.code}}</p>
-    <p>品名 {{Registration.name}}</p>
-    <p>備考 {{Registration.description}}</p>
+    <p>No. {{registration.number}}</p>
+    <p>コード {{registration.code}}</p>
+    <p>品名 {{registration.name}}</p>
+    <p>内容 {{registration.category}}</p>
+    <p>仕入先 {{registration.supplier}}</p>
+    <p>備考 {{registration.description}}</p>
+    <p>依頼書作成 {{registration.writer}}</p>
+    <p>カクテル登録 {{registration.register}}</p>
+    <p>リスト更新 {{registration.update}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'registration_list' %}">一覧に戻る</a></p>

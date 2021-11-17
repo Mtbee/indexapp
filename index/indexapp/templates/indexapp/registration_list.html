@@ -4,7 +4,7 @@
     {% if request.user.is_authenticated %}
         <p>{{ user.username }}さんがログイン中です</p>
     {% endif %}
-    <h1>TF原料登録index</h1>
+    <h1>TN原料登録index</h1>
 {% endblock header %}
 
 {% block content %}
@@ -16,7 +16,7 @@
 </div>
 <table>
     <thead>
-        <tr>
+        <tr class="border">
             <th scope="col">No.</th>
             <th scope="col">コード</th>
             <th scope="col">品名</th>
@@ -28,7 +28,7 @@
     </thead>
     <tbody>
         {% for registration in registration %}
-        <tr>
+        <tr class="border">
             <td>{{ registration.number }}</td>
             <td>{{ registration.code }}</td>
             <td>{{ registration.name }}</td>

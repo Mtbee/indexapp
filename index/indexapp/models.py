@@ -21,7 +21,12 @@ class Registration(models.Model):
     number = models.IntegerField("No.", unique=True)
     code = models.IntegerField("コード", blank=True, null=True)
     name = models.CharField("品名", max_length=30, blank=True, null=True)
+    category = models.CharField("内容", max_length=30, blank=True, null=True)
+    supplier = models.CharField("仕入先", max_length=30, blank=True, null=True)    
     description = models.TextField("備考", blank=True, null=True)
+    writer = models.CharField("依頼書作成", max_length=30, blank=True, null=True)
+    register = models.CharField("カクテル登録", max_length=30, blank=True, null=True)
+    update = models.CharField("リスト更新", max_length=30, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +36,13 @@ class Foods(models.Model):
     number = models.IntegerField("No.", unique=True)
     code = models.IntegerField("コード", blank=True, null=True)
     name = models.CharField("品名", max_length=30, blank=True, null=True)
+    category = models.CharField("内容", max_length=30, blank=True, null=True)
+    supplier = models.CharField("仕入先", max_length=30, blank=True, null=True)
+    cutomer = models.CharField("得意先", max_length=30, blank=True, null=True)     
     description = models.TextField("備考", blank=True, null=True)
+    writer = models.CharField("依頼書作成", max_length=30, blank=True, null=True)
+    register = models.CharField("カクテル登録", max_length=30, blank=True, null=True)
+    update = models.CharField("リスト更新", max_length=30, blank=True, null=True)
 
     def __str__(self):
         return self.name
