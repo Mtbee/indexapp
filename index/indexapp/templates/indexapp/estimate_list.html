@@ -1,0 +1,46 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
+    {% endif %}
+    <h1>見積依頼index</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="menu">
+    <p class="btn"><a href="{% url 'estimate_create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'estimate_csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
+</div>
+<table>
+    <thead>
+        <tr class="border">
+            <th scope="col">No.</th>
+            <th scope="col">見積先</th>
+            <th scope="col">品名</th>
+            <th scope="col">形態</th>
+            <th scope="col">企画期限</th>
+            <th scope="col">担当者</th>
+            <th scope="col">詳細</th>
+            <th scope="col">編集</th>
+            <th scope="col">削除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for estimate in estimate %}
+        <tr class="border">
+            <td>{{ estimate.number }}</td>
+            <td>{{ estimate.client }}</td>
+            <td>{{ estimate.name }}</td>
+            <td>{{ estimate.form }}</td>
+            <td>{{ estimate.deadline }}</td>
+            <td>{{ estimate.responder }}</td>
+            <td><a href="{% url 'estimate_detail' estimate.pk %}">詳細</a></td>
+            <td><a href="{% url 'estimate_update' estimate.pk %}">編集</a></td>
+            <td><a href="{% url 'estimate_delete' estimate.pk %}">削除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

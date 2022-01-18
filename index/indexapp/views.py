@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from .models import Progress, Registration, Foods
+from .models import Progress, Registration, Foods, Estimate
 from django.http import HttpResponse
 import csv
 from django.contrib.auth.decorators import login_required
@@ -58,8 +58,8 @@ class ProgressDelete(DeleteView):
     success_url = reverse_lazy("list")
 
     def get(self, request, pk):
-        # スーパーユーザーでなければログインページ
-        if not self.request.user.is_superuser:
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
@@ -143,8 +143,8 @@ class RegistrationDelete(DeleteView):
     success_url = reverse_lazy("registration_list")
 
     def get(self, request, pk):
-        # スーパーユーザーでなければログインページ
-        if not self.request.user.is_superuser:
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
@@ -226,8 +226,8 @@ class FoodsDelete(DeleteView):
     success_url = reverse_lazy("foods_list")
 
     def get(self, request, pk):
-        # スーパーユーザーでなければログインページ
-        if not self.request.user.is_superuser:
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
@@ -259,5 +259,86 @@ def Foods_csvdownload(request):
             post.writer,
             post.register,
             post.update
+            ])
+    return response
+
+
+# 見積依頼
+class EstimateIndex(ListView):
+    model = Estimate
+    context_object_name = "estimate"
+    ordering = ["-number"]
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class EstimateDetail(DetailView):
+    model = Estimate
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class EstimateCreate(CreateView):
+    model = Estimate
+    fields = "__all__"
+    success_url = reverse_lazy("estimate_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class EstimateUpdate(UpdateView):
+    model = Estimate
+    fields = "__all__"
+    success_url = reverse_lazy("estimate_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class EstimateDelete(DeleteView):
+    model = Estimate
+    success_url = reverse_lazy("estimate_list")
+
+    def get(self, request, pk):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+def Estimate_csvdownload(request):
+    response = HttpResponse(content_type="text/csv; charset=cp932")
+    response['Content-Disposition'] = 'attachment; filename = estimate.csv'
+    writer = csv.writer(response)
+    writer.writerow([
+        "No.",
+        "見積依頼",
+        "品名",
+        "形態",
+        "企画期限",
+        "依頼部門",
+        "備考",
+        "担当者",
+        ])
+    for post in Estimate.objects.all():
+        writer.writerow([
+            post.number,
+            post.client,
+            post.name,
+            post.form,
+            post.deadline,
+            post.requester,
+            post.description,
+            post.responder,
             ])
     return response

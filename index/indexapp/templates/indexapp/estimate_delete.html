@@ -4,14 +4,12 @@
     {% if request.user.is_authenticated %}
         <p>{{ user.username }}さんがログイン中です</p>
     {% endif %}
-    <h1>製作進行 登録画面</h1>
+    <h1>見積依頼 削除画面</h1>
 {% endblock header %}
 
 {% block content %}
 <form action="" method="POST">{% csrf_token %}
-    <table class="form">
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="登録">
+    <p>{{ estimate.name }}</p>
+    <input type="submit" value="削除">
 </form>
 {% endblock content %}

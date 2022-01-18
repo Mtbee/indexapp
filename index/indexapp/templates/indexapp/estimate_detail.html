@@ -1,0 +1,24 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>見積依頼 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{estimate.number}}</p>
+    <p>見積先 {{estimate.client}}</p>
+    <p>品名 {{estimate.name}}</p>
+    <p>形態 {{estimate.form}}</p>
+    <p>企画期限 {{estimate.deadline}}</p>
+    <p>依頼部門 {{estimate.requenter}}</p>
+    <p>備考 {{estimate.description}}</p>
+    <p>担当者 {{estimate.respoder}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'estimate_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

@@ -2,19 +2,17 @@
 
 {% block header %}
     {% if request.user.is_authenticated %}
-        <p>{{ user.username }}さんがログイン中です</p>
+        <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
     {% endif %}
     <h1>Index TOP</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="menu">
-    <p class="btn"><a href="{% url 'logout' %}">ログアウト</a></p>
-</div>
 
 <ul>
     <li><a href="{% url 'progress_list' %}">制作進行</a></li>
     <li><a href="{% url 'registration_list' %}">TN原料登録</a></li>
     <li><a href="{% url 'foods_list' %}">TF原料登録</a></li>
+    <li><a href="{% url 'estimate_list' %}">見積依頼</a></li>
 </ul>
 {% endblock content %}

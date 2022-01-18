@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, Progress_csvdownload, top, RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload, FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload
+from .views import ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, Progress_csvdownload, top, RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload, FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload, EstimateIndex, EstimateDetail, EstimateCreate, EstimateUpdate, EstimateDelete, Estimate_csvdownload
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -31,5 +31,13 @@ urlpatterns = [
     path("foods/update/<int:pk>", FoodsUpdate.as_view(), name="foods_update"),
     path("foods/delete/<int:pk>", FoodsDelete.as_view(), name="foods_delete"),
     path("foods/csv/", Foods_csvdownload, name="foods_csv"),
+  
+    #見積依頼
+    path("estimate/list", EstimateIndex.as_view(), name="estimate_list"),
+    path("estimate/create", EstimateCreate.as_view(), name="estimate_create"),
+    path("estimate/detail/<int:pk>", EstimateDetail.as_view(), name="estimate_detail"),
+    path("estimate/update/<int:pk>", EstimateUpdate.as_view(), name="estimate_update"),
+    path("estimate/delete/<int:pk>", EstimateDelete.as_view(), name="estimate_delete"),
+    path("estimate/csv/", Estimate_csvdownload, name="estimate_csv"),
 ]
 

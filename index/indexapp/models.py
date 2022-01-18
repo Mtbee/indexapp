@@ -46,3 +46,17 @@ class Foods(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Estimate(models.Model):
+    number = models.IntegerField("No.", unique=True)
+    client = models.CharField("見積先", max_length=30, blank=True, null=True)
+    name = models.CharField("品名", max_length=30, blank=True, null=True)
+    form = models.CharField("形態", max_length=30, blank=True, null=True)
+    deadline = models.CharField("企画期限", max_length=30, blank=True, null=True)
+    requester = models.CharField("依頼部門", max_length=30, blank=True, null=True)
+    description = models.TextField("備考", blank=True, null=True)     
+    responder = models.TextField("担当者", blank=True, null=True)
+
+    def __str__(self):
+        return self.name

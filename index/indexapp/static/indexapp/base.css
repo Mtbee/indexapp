@@ -43,5 +43,15 @@ thead {
 }
 
 .border th, .border td{
-    border: solid 1px;
+    /* border: solid 1px; */
+}
+
+.form tbody tr th, .form tbody tr td{
+    display: block;
+    width: 90%;
+}
+
+.form tbody tr th {
+    text-align: left;
+    padding-top: 20px;
 }

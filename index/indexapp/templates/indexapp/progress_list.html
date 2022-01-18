@@ -2,7 +2,7 @@
 
 {% block header %}
     {% if request.user.is_authenticated %}
-        <p>{{ user.username }}さんがログイン中です</p>
+        <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
     {% endif %}
     <h1>製作進行index</h1>
 {% endblock header %}
@@ -11,7 +11,6 @@
 <div class="menu">
     <p class="btn"><a href="{% url 'progress_create' %}">新規作成</a></p>
     <p class="btn"><a href="{% url 'progress_csv' %}">csv出力</a></p>
-    <p class="btn"><a href="{% url 'logout' %}">ログアウト</a></p>
     <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
 </div>
 <table>
