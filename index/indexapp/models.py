@@ -48,15 +48,21 @@ class Foods(models.Model):
         return self.name
 
 
-class Estimate(models.Model):
+class SendRequest(models.Model):
     number = models.IntegerField("No.", unique=True)
-    client = models.CharField("見積先", max_length=30, blank=True, null=True)
-    name = models.CharField("品名", max_length=30, blank=True, null=True)
-    form = models.CharField("形態", max_length=30, blank=True, null=True)
-    deadline = models.CharField("企画期限", max_length=30, blank=True, null=True)
-    requester = models.CharField("依頼部門", max_length=30, blank=True, null=True)
-    description = models.TextField("備考", blank=True, null=True)     
+    department = models.CharField("依頼先", max_length=30, blank=True, null=True)
+    title = models.CharField("タイトル", max_length=100, blank=True, null=True)
     responder = models.TextField("担当者", blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title
+
+
+class ReceiveRequest(models.Model):
+    number = models.IntegerField("No.", unique=True)
+    department = models.CharField("依頼元", max_length=30, blank=True, null=True)
+    title = models.CharField("タイトル", max_length=100, blank=True, null=True)
+    responder = models.TextField("担当者", blank=True, null=True)
+
+    def __str__(self):
+        return self.title

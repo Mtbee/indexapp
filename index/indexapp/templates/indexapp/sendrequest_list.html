@@ -1,0 +1,41 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
+    {% endif %}
+    <h1>物品サービス依頼(発信)index</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="menu">
+    <p class="btn"><a href="{% url 'sendrequest_create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'sendrequest_csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
+</div>
+<table>
+    <thead>
+        <tr class="border">
+            <th scope="col">No.</th>
+            <th scope="col">依頼先</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">担当者</th>
+            <th scope="col">編集</th>
+            <th scope="col">削除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for foods in foods %}
+        <tr class="border">
+            <td>{{ sendrequest.number }}</td>
+            <td>{{ sendrequest.department }}</td>
+            <td>{{ sendrequest.title }}</td>
+            <td>{{ sendrequest.responder }}</td>
+            <td><a href="{% url 'sendrequest_detail' foods.pk %}">詳細</a></td>
+            <td><a href="{% url 'sendrequest_update' foods.pk %}">編集</a></td>
+            <td><a href="{% url 'sendrequest_delete' foods.pk %}">削除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

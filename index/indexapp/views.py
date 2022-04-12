@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from .models import Progress, Registration, Foods, Estimate
+from .models import Progress, Registration, Foods, SendRequest, ReceiveRequest
 from django.http import HttpResponse
 import csv
 from django.contrib.auth.decorators import login_required
@@ -263,10 +263,10 @@ def Foods_csvdownload(request):
     return response
 
 
-# 見積依頼
-class EstimateIndex(ListView):
-    model = Estimate
-    context_object_name = "estimate"
+# 物品サービス依頼(発信)
+class SendRequestIndex(ListView):
+    model = SendRequest
+    context_object_name = "sendrequest"
     ordering = ["-number"]
 
     def get(self, request, **kwargs):
@@ -275,8 +275,8 @@ class EstimateIndex(ListView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class EstimateDetail(DetailView):
-    model = Estimate
+class SendRequestDetail(DetailView):
+    model = SendRequest
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -284,10 +284,10 @@ class EstimateDetail(DetailView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class EstimateCreate(CreateView):
-    model = Estimate
+class SendRequestCreate(CreateView):
+    model = SendRequest
     fields = "__all__"
-    success_url = reverse_lazy("estimate_list")
+    success_url = reverse_lazy("sendrequest_list")
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -295,10 +295,10 @@ class EstimateCreate(CreateView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class EstimateUpdate(UpdateView):
-    model = Estimate
+class SendRequestUpdate(UpdateView):
+    model = SendRequest
     fields = "__all__"
-    success_url = reverse_lazy("estimate_list")
+    success_url = reverse_lazy("sendrequest_list")
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -306,9 +306,9 @@ class EstimateUpdate(UpdateView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class EstimateDelete(DeleteView):
-    model = Estimate
-    success_url = reverse_lazy("estimate_list")
+class SendRequestDelete(DeleteView):
+    model = SendRequest
+    success_url = reverse_lazy("sendrequest_list")
 
     def get(self, request, pk):
         # アクティブユーザーでなければログインページ
@@ -316,29 +316,94 @@ class EstimateDelete(DeleteView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-def Estimate_csvdownload(request):
+def SendRequest_csvdownload(request):
     response = HttpResponse(content_type="text/csv; charset=cp932")
-    response['Content-Disposition'] = 'attachment; filename = estimate.csv'
+    response['Content-Disposition'] = 'attachment; filename = sendrequest.csv'
     writer = csv.writer(response)
     writer.writerow([
         "No.",
-        "見積依頼",
-        "品名",
-        "形態",
-        "企画期限",
-        "依頼部門",
-        "備考",
+        "依頼先",
+        "タイトル",
         "担当者",
         ])
-    for post in Estimate.objects.all():
+    for post in SendRequest.objects.all():
         writer.writerow([
             post.number,
-            post.client,
-            post.name,
-            post.form,
-            post.deadline,
-            post.requester,
-            post.description,
+            post.department,
+            post.title,
+            post.responder,
+            ])
+    return response
+
+
+# 物品サービス依頼(受信)
+class ReceiveRequestIndex(ListView):
+    model = ReceiveRequest
+    context_object_name = "receiverequest"
+    ordering = ["-number"]
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ReceiveRequestDetail(DetailView):
+    model = ReceiveRequest
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ReceiveRequestCreate(CreateView):
+    model = ReceiveRequest
+    fields = "__all__"
+    success_url = reverse_lazy("receiverequest_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ReceiveRequestUpdate(UpdateView):
+    model = ReceiveRequest
+    fields = "__all__"
+    success_url = reverse_lazy("receiverequest_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ReceiveRequestDelete(DeleteView):
+    model = ReceiveRequest
+    success_url = reverse_lazy("receiverequest_list")
+
+    def get(self, request, pk):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+def ReceiveRequest_csvdownload(request):
+    response = HttpResponse(content_type="text/csv; charset=cp932")
+    response['Content-Disposition'] = 'attachment; filename = receiverequest.csv'
+    writer = csv.writer(response)
+    writer.writerow([
+        "No.",
+        "依頼元",
+        "タイトル",
+        "担当者",
+        ])
+    for post in ReceiveRequest.objects.all():
+        writer.writerow([
+            post.number,
+            post.department,
+            post.title,
             post.responder,
             ])
     return response

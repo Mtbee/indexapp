@@ -1,0 +1,20 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>物品サービス依頼(発信) 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{sendrequest.number}}</p>
+    <p>依頼元 {{sendrequest.department}}</p>
+    <p>タイトル {{sendrequest.title}}</p>
+    <p>担当者 {{sendrequest.responder}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'sendrequest_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

@@ -1,6 +1,11 @@
 from django.urls import path
 from . import views
-from .views import ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, Progress_csvdownload, top, RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload, FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload, EstimateIndex, EstimateDetail, EstimateCreate, EstimateUpdate, EstimateDelete, Estimate_csvdownload
+from .views import (top,
+ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, Progress_csvdownload,
+RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload,
+FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload,
+SendRequestIndex, SendRequestDetail, SendRequestCreate, SendRequestUpdate, SendRequestDelete, SendRequest_csvdownload,
+ReceiveRequestIndex, ReceiveRequestDetail, ReceiveRequestCreate, ReceiveRequestUpdate, ReceiveRequestDelete, ReceiveRequest_csvdownload)
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -32,12 +37,20 @@ urlpatterns = [
     path("foods/delete/<int:pk>", FoodsDelete.as_view(), name="foods_delete"),
     path("foods/csv/", Foods_csvdownload, name="foods_csv"),
   
-    #見積依頼
-    path("estimate/list", EstimateIndex.as_view(), name="estimate_list"),
-    path("estimate/create", EstimateCreate.as_view(), name="estimate_create"),
-    path("estimate/detail/<int:pk>", EstimateDetail.as_view(), name="estimate_detail"),
-    path("estimate/update/<int:pk>", EstimateUpdate.as_view(), name="estimate_update"),
-    path("estimate/delete/<int:pk>", EstimateDelete.as_view(), name="estimate_delete"),
-    path("estimate/csv/", Estimate_csvdownload, name="estimate_csv"),
-]
+    #物品サービス依頼(発信)
+    path("sendrequest/list", SendRequestIndex.as_view(), name="sendrequest_list"),
+    path("sendrequest/create", SendRequestCreate.as_view(), name="sendrequest_create"),
+    path("sendrequest/detail/<int:pk>", SendRequestDetail.as_view(), name="sendrequest_detail"),
+    path("sendrequest/update/<int:pk>", SendRequestUpdate.as_view(), name="sendrequest_update"),
+    path("sendrequest/delete/<int:pk>", SendRequestDelete.as_view(), name="sendrequest_delete"),
+    path("sendrequest/csv/", SendRequest_csvdownload, name="sendrequest_csv"),
 
+
+    #物品サービス依頼(受信)
+    path("receiverequest/list", ReceiveRequestIndex.as_view(), name="receiverequest_list"),
+    path("receiverequest/create", ReceiveRequestCreate.as_view(), name="receiverequest_create"),
+    path("receiverequest/detail/<int:pk>", ReceiveRequestDetail.as_view(), name="receiverequest_detail"),
+    path("receiverequest/update/<int:pk>", ReceiveRequestUpdate.as_view(), name="receiverequest_update"),
+    path("receiverequest/delete/<int:pk>", ReceiveRequestDelete.as_view(), name="receiverequest_delete"),
+    path("receiverequest/csv/", ReceiveRequest_csvdownload, name="receiverequest_csv"),
+]
