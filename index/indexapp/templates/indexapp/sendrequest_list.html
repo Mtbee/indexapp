@@ -25,15 +25,15 @@
         </tr>
     </thead>
     <tbody>
-        {% for foods in foods %}
+        {% for sendrequest in sendrequest %}
         <tr class="border">
             <td>{{ sendrequest.number }}</td>
             <td>{{ sendrequest.department }}</td>
             <td>{{ sendrequest.title }}</td>
             <td>{{ sendrequest.responder }}</td>
-            <td><a href="{% url 'sendrequest_detail' foods.pk %}">詳細</a></td>
-            <td><a href="{% url 'sendrequest_update' foods.pk %}">編集</a></td>
-            <td><a href="{% url 'sendrequest_delete' foods.pk %}">削除</a></td>
+            <td><a href="{% url 'sendrequest_detail' sendrequest.pk %}">詳細</a></td>
+            <td><a href="{% url 'sendrequest_update' sendrequest.pk %}">編集</a></td>
+            <td><a href="{% url 'sendrequest_delete' sendrequest.pk %}">削除</a></td>
         </tr>
         {% endfor %}
     </tbody>
