@@ -5,7 +5,8 @@ ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, P
 RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload,
 FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload,
 SendRequestIndex, SendRequestDetail, SendRequestCreate, SendRequestUpdate, SendRequestDelete, SendRequest_csvdownload,
-ReceiveRequestIndex, ReceiveRequestDetail, ReceiveRequestCreate, ReceiveRequestUpdate, ReceiveRequestDelete, ReceiveRequest_csvdownload)
+ReceiveRequestIndex, ReceiveRequestDetail, ReceiveRequestCreate, ReceiveRequestUpdate, ReceiveRequestDelete, ReceiveRequest_csvdownload,
+RouletteIndex, RouletteCreate, RouletteDelete)
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -53,4 +54,9 @@ urlpatterns = [
     path("receiverequest/update/<int:pk>", ReceiveRequestUpdate.as_view(), name="receiverequest_update"),
     path("receiverequest/delete/<int:pk>", ReceiveRequestDelete.as_view(), name="receiverequest_delete"),
     path("receiverequest/csv/", ReceiveRequest_csvdownload, name="receiverequest_csv"),
+
+        #ルーレット
+    path("roulette/list", RouletteIndex.as_view(), name="roulette_list"),
+    path("roulette/create", RouletteCreate.as_view(), name="roulette_create"),
+    path("roulette/delete/<int:pk>", RouletteDelete.as_view(), name="roulette_delete"),
 ]

@@ -1,11 +1,12 @@
+from unicodedata import name
 from django.db import models
 
 # Create your models here.
 
 class Progress(models.Model):
     number = models.IntegerField("No.", unique=True)
-    code = models.IntegerField("コード", blank=True, null=True)
-    name = models.CharField("品名", max_length=30, blank=True, null=True)
+    code = models.CharField("コード", max_length=100, blank=True, null=True)
+    name = models.CharField("品名", max_length=100, blank=True, null=True)
     quantity = models.IntegerField("数量", blank=True, null=True)
     unit = models.CharField("単位", max_length=30, blank=True, null=True)
     order = models.DateField("発注日", blank=True, null=True)
@@ -19,8 +20,8 @@ class Progress(models.Model):
 
 class Registration(models.Model):
     number = models.IntegerField("No.", unique=True)
-    code = models.IntegerField("コード", blank=True, null=True)
-    name = models.CharField("品名", max_length=30, blank=True, null=True)
+    code = models.CharField("コード", max_length=100, blank=True, null=True)
+    name = models.CharField("品名", max_length=100, blank=True, null=True)
     category = models.CharField("内容", max_length=30, blank=True, null=True)
     supplier = models.CharField("仕入先", max_length=30, blank=True, null=True)    
     description = models.TextField("備考", blank=True, null=True)
@@ -34,8 +35,8 @@ class Registration(models.Model):
 
 class Foods(models.Model):
     number = models.IntegerField("No.", unique=True)
-    code = models.IntegerField("コード", blank=True, null=True)
-    name = models.CharField("品名", max_length=30, blank=True, null=True)
+    code = models.CharField("コード", max_length=100, blank=True, null=True)
+    name = models.CharField("品名", max_length=100, blank=True, null=True)
     category = models.CharField("内容", max_length=30, blank=True, null=True)
     supplier = models.CharField("仕入先", max_length=30, blank=True, null=True)
     cutomer = models.CharField("得意先", max_length=30, blank=True, null=True)     
@@ -66,3 +67,9 @@ class ReceiveRequest(models.Model):
 
     def __str__(self):
         return self.title
+
+class Roulette(models.Model):
+    name = models.CharField("なまえ", max_length=30, blank=True, null=True)
+
+    def __str__(self):
+        return self.name

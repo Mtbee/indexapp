@@ -1,9 +1,10 @@
+from re import template
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from .models import Progress, Registration, Foods, SendRequest, ReceiveRequest
+from .models import Progress, Registration, Foods, SendRequest, ReceiveRequest, Roulette
 from django.http import HttpResponse
-import csv
+import csv, random
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -407,3 +408,37 @@ def ReceiveRequest_csvdownload(request):
             post.responder,
             ])
     return response
+
+    # ルーレット
+class RouletteIndex(ListView):
+    queryset = Roulette.objects.order_by('?')[:20]
+    context_object_name = "roulette_ex"
+    template_name = "roulette_list.html"
+    print(queryset)
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class RouletteDelete(DeleteView):
+    model = Roulette
+    success_url = reverse_lazy("roulette_list")
+
+    def get(self, request, pk):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class RouletteCreate(CreateView):
+    model = Roulette
+    fields = "__all__"
+    success_url = reverse_lazy("roulette_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
