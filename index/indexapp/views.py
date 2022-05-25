@@ -414,7 +414,6 @@ class RouletteIndex(ListView):
     queryset = Roulette.objects.order_by('?')[:20]
     context_object_name = "roulette_ex"
     template_name = "roulette_list.html"
-    print(queryset)
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
