@@ -441,3 +441,10 @@ class RouletteCreate(CreateView):
         if not request.user.is_active:
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
+
+    
+    #パッカー
+def index(request) :
+    if not request.user.is_active:
+        return redirect('/accounts/login/?next=%s' % request.path)
+    return render(request, "packers/index.html")

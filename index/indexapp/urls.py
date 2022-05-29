@@ -1,3 +1,4 @@
+from operator import index
 from django.urls import path
 from . import views
 from .views import (top,
@@ -6,7 +7,7 @@ RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, R
 FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload,
 SendRequestIndex, SendRequestDetail, SendRequestCreate, SendRequestUpdate, SendRequestDelete, SendRequest_csvdownload,
 ReceiveRequestIndex, ReceiveRequestDetail, ReceiveRequestCreate, ReceiveRequestUpdate, ReceiveRequestDelete, ReceiveRequest_csvdownload,
-RouletteIndex, RouletteCreate, RouletteDelete)
+RouletteIndex, RouletteCreate, RouletteDelete, index)
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -55,8 +56,11 @@ urlpatterns = [
     path("receiverequest/delete/<int:pk>", ReceiveRequestDelete.as_view(), name="receiverequest_delete"),
     path("receiverequest/csv/", ReceiveRequest_csvdownload, name="receiverequest_csv"),
 
-        #ルーレット
+    #ルーレット
     path("roulette/list", RouletteIndex.as_view(), name="roulette_list"),
     path("roulette/create", RouletteCreate.as_view(), name="roulette_create"),
     path("roulette/delete/<int:pk>", RouletteDelete.as_view(), name="roulette_delete"),
+
+    #パッカー
+    path("packer", index, name="packers"),
 ]
