@@ -31,7 +31,6 @@
             <td>{{ sendrequest.department }}</td>
             <td>{{ sendrequest.title }}</td>
             <td>{{ sendrequest.responder }}</td>
-            <td><a href="{% url 'sendrequest_detail' sendrequest.pk %}">詳細</a></td>
             <td><a href="{% url 'sendrequest_update' sendrequest.pk %}">編集</a></td>
             <td><a href="{% url 'sendrequest_delete' sendrequest.pk %}">削除</a></td>
         </tr>

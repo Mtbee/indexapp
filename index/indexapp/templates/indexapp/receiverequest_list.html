@@ -31,7 +31,6 @@
             <td>{{ receiverequest.department }}</td>
             <td>{{ receiverequest.title }}</td>
             <td>{{ receiverequest.responder }}</td>
-            <td><a href="{% url 'receiverequest_detail' receiverequest.pk %}">詳細</a></td>
             <td><a href="{% url 'receiverequest_update' receiverequest.pk %}">編集</a></td>
             <td><a href="{% url 'receiverequest_delete' receiverequest.pk %}">削除</a></td>
         </tr>
