@@ -13,6 +13,8 @@
     <p>依頼元 {{receiverequest.department}}</p>
     <p>タイトル {{receiverequest.title}}</p>
     <p>担当者 {{receiverequest.responder}}</p>
+    <p>登録日 {{receiverequest.created_at}}</p>
+    <p>更新日 {{receiverequest.updated_at}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'receiverequest_list' %}">一覧に戻る</a></p>

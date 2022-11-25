@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Progress, Registration, Foods, SendRequest, ReceiveRequest
+from .models import ProgressNB, ProgressPB, Registration, Foods, SendRequest, ReceiveRequest
 
 # Register your models here.
-admin.site.register(Progress)
+admin.site.register(ProgressNB)
+admin.site.register(ProgressPB)
 admin.site.register(Registration)
 admin.site.register(Foods)
 admin.site.register(SendRequest)

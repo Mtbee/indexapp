@@ -1,0 +1,21 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>製作進行PB 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{progresspb.number}}</p>
+    <p>コード {{progresspb.code}}</p>
+    <p>品名 {{progresspb.name}}</p>
+    <p>登録日 {{progresspb.created_at}}</p>
+    <p>更新日 {{progresspb.updated_at}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'progresspb_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
+    {% endif %}
+    <h1>製作進行NB index</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="menu">
+    <p class="btn"><a href="{% url 'progressnb_create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'progressnb_csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
+</div>
+<table>
+    <thead>
+        <tr class="border">
+            <th scope="col">No.</th>
+            <th scope="col">コード</th>
+            <th scope="col">品名</th>
+            <th scope="col">備考</th>
+            <th scope="col">詳細</th>
+            <th scope="col">編集</th>
+            <th scope="col">削除</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for progressnb in progressnb %}
+        <tr class="border">
+            <td>{{ progressnb.number }}</td>
+            <td>{{ progressnb.code }}</td>
+            <td>{{ progressnb.name }}</td>
+            <td>{{ progressnb.description }}</td>
+            <td><a href="{% url 'progressnb_detail' progressnb.pk %}">詳細</a></td>
+            <td><a href="{% url 'progressnb_update' progressnb.pk %}">編集</a></td>
+            <td><a href="{% url 'progressnb_delete' progressnb.pk %}">削除</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

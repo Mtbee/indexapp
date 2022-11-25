@@ -4,12 +4,12 @@
     {% if request.user.is_authenticated %}
         <p>{{ user.username }}さんがログイン中です</p>
     {% endif %}
-    <h1>製作進行 削除画面</h1>
+    <h1>製作進行NB 削除画面</h1>
 {% endblock header %}
 
 {% block content %}
 <form action="" method="POST">{% csrf_token %}
-    <p>{{ progress.name }}</p>
+    <p>{{ progressnb.name }}</p>
     <input type="submit" value="削除">
 </form>
 {% endblock content %}

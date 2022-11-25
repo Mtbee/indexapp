@@ -13,6 +13,8 @@
     <p>依頼元 {{sendrequest.department}}</p>
     <p>タイトル {{sendrequest.title}}</p>
     <p>担当者 {{sendrequest.responder}}</p>
+    <p>登録日 {{sendrequest.created_at}}</p>
+    <p>更新日 {{sendrequest.updated_at}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'sendrequest_list' %}">一覧に戻る</a></p>

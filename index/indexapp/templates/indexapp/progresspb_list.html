@@ -4,13 +4,13 @@
     {% if request.user.is_authenticated %}
         <p>{{ user.username }}さんがログイン中です  <a href="{% url 'logout' %}">ログアウト</a></p>
     {% endif %}
-    <h1>製作進行index</h1>
+    <h1>製作進行PB index</h1>
 {% endblock header %}
 
 {% block content %}
 <div class="menu">
-    <p class="btn"><a href="{% url 'progress_create' %}">新規作成</a></p>
-    <p class="btn"><a href="{% url 'progress_csv' %}">csv出力</a></p>
+    <p class="btn"><a href="{% url 'progresspb_create' %}">新規作成</a></p>
+    <p class="btn"><a href="{% url 'progresspb_csv' %}">csv出力</a></p>
     <p class="btn"><a href="{% url 'top' %}">TOP</a></p>
 </div>
 <table>
@@ -26,15 +26,15 @@
         </tr>
     </thead>
     <tbody>
-        {% for progress in progress %}
+        {% for progresspb in progresspb %}
         <tr class="border">
-            <td>{{ progress.number }}</td>
-            <td>{{ progress.code }}</td>
-            <td>{{ progress.name }}</td>
-            <td>{{ progress.description }}</td>
-            <td><a href="{% url 'progress_detail' progress.pk %}">詳細</a></td>
-            <td><a href="{% url 'progress_update' progress.pk %}">編集</a></td>
-            <td><a href="{% url 'progress_delete' progress.pk %}">削除</a></td>
+            <td>{{ progresspb.number }}</td>
+            <td>{{ progresspb.code }}</td>
+            <td>{{ progresspb.name }}</td>
+            <td>{{ progresspb.description }}</td>
+            <td><a href="{% url 'progresspb_detail' progresspb.pk %}">詳細</a></td>
+            <td><a href="{% url 'progresspb_update' progresspb.pk %}">編集</a></td>
+            <td><a href="{% url 'progresspb_delete' progresspb.pk %}">削除</a></td>
         </tr>
         {% endfor %}
     </tbody>

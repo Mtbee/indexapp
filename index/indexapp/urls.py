@@ -2,7 +2,8 @@ from operator import index
 from django.urls import path
 from . import views
 from .views import (top,
-ProgressIndex, ProgressDetail, ProgressCreate, ProgressUpdate, ProgressDelete, Progress_csvdownload,
+ProgressNBIndex, ProgressNBDetail, ProgressNBCreate, ProgressNBUpdate, ProgressNBDelete, ProgressNB_csvdownload,
+ProgressPBIndex, ProgressPBDetail, ProgressPBCreate, ProgressPBUpdate, ProgressPBDelete, ProgressPB_csvdownload,
 RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload,
 FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload,
 SendRequestIndex, SendRequestDetail, SendRequestCreate, SendRequestUpdate, SendRequestDelete, SendRequest_csvdownload,
@@ -15,13 +16,21 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path("", views.top, name="top"),
 
-    #製作進行
-    path("progress/list", ProgressIndex.as_view(), name="progress_list"),
-    path("progress/create", ProgressCreate.as_view(), name="progress_create"),
-    path("progress/detail/<int:pk>", ProgressDetail.as_view(), name="progress_detail"),
-    path("progress/update/<int:pk>", ProgressUpdate.as_view(), name="progress_update"),
-    path("progress/delete/<int:pk>", ProgressDelete.as_view(), name="progress_delete"),
-    path("progress/csv/", Progress_csvdownload, name="progress_csv"),
+    #製作進行NB
+    path("progressnb/list", ProgressNBIndex.as_view(), name="progressnb_list"),
+    path("progressnb/create", ProgressNBCreate.as_view(), name="progressnb_create"),
+    path("progressnb/detail/<int:pk>", ProgressNBDetail.as_view(), name="progressnb_detail"),
+    path("progressnb/update/<int:pk>", ProgressNBUpdate.as_view(), name="progressnb_update"),
+    path("progressnb/delete/<int:pk>", ProgressNBDelete.as_view(), name="progressnb_delete"),
+    path("progressnb/csv/", ProgressNB_csvdownload, name="progressnb_csv"),
+
+    #製作進行PB
+    path("progresspb/list", ProgressPBIndex.as_view(), name="progresspb_list"),
+    path("progresspb/create", ProgressPBCreate.as_view(), name="progresspb_create"),
+    path("progresspb/detail/<int:pk>", ProgressPBDetail.as_view(), name="progresspb_detail"),
+    path("progresspb/update/<int:pk>", ProgressPBUpdate.as_view(), name="progresspb_update"),
+    path("progresspb/delete/<int:pk>", ProgressPBDelete.as_view(), name="progresspb_delete"),
+    path("progresspb/csv/", ProgressPB_csvdownload, name="progresspb_csv"),
 
     #TN原料登録
     path("registration/list", RegistrationIndex.as_view(), name="registration_list"),

@@ -2,7 +2,7 @@ from re import template
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from .models import Progress, Registration, Foods, SendRequest, ReceiveRequest, Roulette
+from .models import ProgressNB, ProgressPB, Registration, Foods, SendRequest, ReceiveRequest, Roulette
 from django.http import HttpResponse
 import csv, random
 from django.contrib.auth.decorators import login_required
@@ -11,10 +11,10 @@ from django.contrib.auth.decorators import login_required
 def top(request):
     return render(request, 'top.html')
 
-# 制作進行
-class ProgressIndex(ListView):
-    model = Progress
-    context_object_name = "progress"
+# 制作進行NB
+class ProgressNBIndex(ListView):
+    model = ProgressNB
+    context_object_name = "progressnb"
     ordering = ["-number"]
 
     def get(self, request, **kwargs):
@@ -23,8 +23,8 @@ class ProgressIndex(ListView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class ProgressDetail(DetailView):
-    model = Progress
+class ProgressNBDetail(DetailView):
+    model = ProgressNB
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -32,10 +32,10 @@ class ProgressDetail(DetailView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class ProgressCreate(CreateView):
-    model = Progress
+class ProgressNBCreate(CreateView):
+    model = ProgressNB
     fields = "__all__"
-    success_url = reverse_lazy("list")
+    success_url = reverse_lazy("progressnb_list")
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -43,10 +43,10 @@ class ProgressCreate(CreateView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class ProgressUpdate(UpdateView):
-    model = Progress
+class ProgressNBUpdate(UpdateView):
+    model = ProgressNB
     fields = "__all__"
-    success_url = reverse_lazy("list")
+    success_url = reverse_lazy("progressnb_list")
 
     def get(self, request, **kwargs):
         # アクティブユーザーでなければログインページ
@@ -54,9 +54,9 @@ class ProgressUpdate(UpdateView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-class ProgressDelete(DeleteView):
-    model = Progress
-    success_url = reverse_lazy("list")
+class ProgressNBDelete(DeleteView):
+    model = ProgressNB
+    success_url = reverse_lazy("progressnb_list")
 
     def get(self, request, pk):
         # アクティブユーザーでなければログインページ
@@ -64,35 +64,101 @@ class ProgressDelete(DeleteView):
             return redirect('/accounts/login/?next=%s' % request.path)
         return super().get(request)
 
-def Progress_csvdownload(request):
+def ProgressNB_csvdownload(request):
     response = HttpResponse(content_type="text/csv; charset=cp932")
-    response['Content-Disposition'] = 'attachment; filename = progress_index.csv'
+    response['Content-Disposition'] = 'attachment; filename = progressnb_index.csv'
     writer = csv.writer(response)
     writer.writerow([
         "No.",
         "コード",
         "品名",
-        "数量",
-        "単位",
-        "発注日",
-        "希望納期",
-        "確定納期",
-        "備考",
+        "登録日",
+        "更新日"
     ])
-    for post in Progress.objects.all():
+    for post in ProgressNB.objects.all():
         writer.writerow([
             post.number,
             post.code,
             post.name,
-            post.quantity,
-            post.unit,
-            post.order,
-            post.prefer,
-            post.fixed,
-            post.description])
+            post.created_at,
+            post.updated_at])
     return response
 
 
+
+
+# 制作進行PB
+class ProgressPBIndex(ListView):
+    model = ProgressPB
+    context_object_name = "progresspb"
+    ordering = ["-number"]
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ProgressPBDetail(DetailView):
+    model = ProgressPB
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ProgressPBCreate(CreateView):
+    model = ProgressPB
+    fields = "__all__"
+    success_url = reverse_lazy("progresspb_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ProgressPBUpdate(UpdateView):
+    model = ProgressPB
+    fields = "__all__"
+    success_url = reverse_lazy("progresspb_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class ProgressPBDelete(DeleteView):
+    model = ProgressPB
+    success_url = reverse_lazy("progresspb_list")
+
+    def get(self, request, pk):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+def ProgressPB_csvdownload(request):
+    response = HttpResponse(content_type="text/csv; charset=cp932")
+    response['Content-Disposition'] = 'attachment; filename = progresspb_index.csv'
+    writer = csv.writer(response)
+    writer.writerow([
+        "No.",
+        "コード",
+        "品名",
+        "登録日",
+        "更新日"
+    ])
+    for post in ProgressPB.objects.all():
+        writer.writerow([
+            post.number,
+            post.code,
+            post.name,
+            post.created_at,
+            post.updated_at])
+    return response
 
 
 
@@ -162,7 +228,9 @@ def Registration_csvdownload(request):
         "備考",
         "依頼書作成",
         "カクテル登録",
-        "リスト更新"    
+        "リスト更新",
+        "登録日",
+        "更新日"    
     ])
     for post in Registration.objects.all():
         writer.writerow([
@@ -174,7 +242,9 @@ def Registration_csvdownload(request):
             post.description,
             post.writer,
             post.register,
-            post.update
+            post.update,
+            post.created_at,
+            post.updated_at
             ])
     return response
 
@@ -246,7 +316,9 @@ def Foods_csvdownload(request):
         "備考",
         "依頼書作成",
         "カクテル登録",
-        "リスト更新"  
+        "リスト更新",
+        "登録日",
+        "更新日"  
     ])
     for post in Foods.objects.all():
         writer.writerow([
@@ -259,7 +331,9 @@ def Foods_csvdownload(request):
             post.description,
             post.writer,
             post.register,
-            post.update
+            post.update,
+            post.created_at,
+            post.updated_at
             ])
     return response
 
@@ -326,6 +400,8 @@ def SendRequest_csvdownload(request):
         "依頼先",
         "タイトル",
         "担当者",
+        "登録日",
+        "更新日"
         ])
     for post in SendRequest.objects.all():
         writer.writerow([
@@ -333,6 +409,8 @@ def SendRequest_csvdownload(request):
             post.department,
             post.title,
             post.responder,
+            post.created_at,
+            post.updated_at
             ])
     return response
 
@@ -399,6 +477,8 @@ def ReceiveRequest_csvdownload(request):
         "依頼元",
         "タイトル",
         "担当者",
+        "登録日",
+        "更新日"
         ])
     for post in ReceiveRequest.objects.all():
         writer.writerow([
@@ -406,6 +486,8 @@ def ReceiveRequest_csvdownload(request):
             post.department,
             post.title,
             post.responder,
+            post.created_at,
+            post.updated_at
             ])
     return response
 

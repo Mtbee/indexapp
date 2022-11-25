@@ -1,0 +1,21 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>製作進行NB 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{progressnb.number}}</p>
+    <p>コード {{progressnb.code}}</p>
+    <p>品名 {{progressnb.name}}</p>
+    <p>登録日 {{progressnb.created_at}}</p>
+    <p>更新日 {{progressnb.updated_at}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'progressnb_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}
