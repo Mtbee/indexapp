@@ -18,8 +18,8 @@
     <p>依頼書作成 {{registration.writer}}</p>
     <p>カクテル登録 {{registration.register}}</p>
     <p>リスト更新 {{registration.update}}</p>
-    <p>登録日 {{registration.created_at}}</p>
-    <p>更新日 {{registration.updated_at}}</p>
+    <p>登録日 {{registration.created_at.date}}</p>
+    <p>更新日 {{registration.updated_at.date}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'registration_list' %}">一覧に戻る</a></p>

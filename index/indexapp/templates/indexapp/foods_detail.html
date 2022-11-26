@@ -19,8 +19,8 @@
     <p>依頼書作成 {{foods.writer}}</p>
     <p>カクテル登録 {{foods.register}}</p>
     <p>リスト更新 {{foods.update}}</p>
-    <p>登録日 {{foods.created_at}}</p>
-    <p>更新日 {{foods.updated_at}}</p>
+    <p>登録日 {{foods.created_at.date}}</p>
+    <p>更新日 {{foods.updated_at.date}}</p>
 </div>
 
 <p class="btn"><a href="{% url 'foods_list' %}">一覧に戻る</a></p>

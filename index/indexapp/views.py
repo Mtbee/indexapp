@@ -80,8 +80,8 @@ def ProgressNB_csvdownload(request):
             post.number,
             post.code,
             post.name,
-            post.created_at,
-            post.updated_at])
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")])
     return response
 
 
@@ -156,8 +156,8 @@ def ProgressPB_csvdownload(request):
             post.number,
             post.code,
             post.name,
-            post.created_at,
-            post.updated_at])
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")])
     return response
 
 
@@ -243,8 +243,8 @@ def Registration_csvdownload(request):
             post.writer,
             post.register,
             post.update,
-            post.created_at,
-            post.updated_at
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")
             ])
     return response
 
@@ -332,8 +332,8 @@ def Foods_csvdownload(request):
             post.writer,
             post.register,
             post.update,
-            post.created_at,
-            post.updated_at
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")
             ])
     return response
 
@@ -409,8 +409,8 @@ def SendRequest_csvdownload(request):
             post.department,
             post.title,
             post.responder,
-            post.created_at,
-            post.updated_at
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")
             ])
     return response
 
@@ -486,8 +486,8 @@ def ReceiveRequest_csvdownload(request):
             post.department,
             post.title,
             post.responder,
-            post.created_at,
-            post.updated_at
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")
             ])
     return response
 

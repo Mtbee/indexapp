@@ -19,6 +19,7 @@
             <th scope="col">No.</th>
             <th scope="col">コード</th>
             <th scope="col">品名</th>
+            <th scope="col">登録日</th>
             <th scope="col">編集</th>
             <th scope="col">削除</th>
         </tr>
@@ -29,6 +30,7 @@
             <td>{{ progressnb.number }}</td>
             <td>{{ progressnb.code }}</td>
             <td>{{ progressnb.name }}</td>
+            <td>{{ progressnb.created_at.date }}</td>
             <td><a href="{% url 'progressnb_update' progressnb.pk %}">編集</a></td>
             <td><a href="{% url 'progressnb_delete' progressnb.pk %}">削除</a></td>
         </tr>

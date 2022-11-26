@@ -20,6 +20,7 @@
             <th scope="col">依頼元</th>
             <th scope="col">タイトル</th>
             <th scope="col">担当者</th>
+            <th scope="col">登録日</th>
             <th scope="col">編集</th>
             <th scope="col">削除</th>
         </tr>
@@ -31,6 +32,7 @@
             <td>{{ receiverequest.department }}</td>
             <td>{{ receiverequest.title }}</td>
             <td>{{ receiverequest.responder }}</td>
+            <td>{{ receiverequest.created_at.date }}</td>
             <td><a href="{% url 'receiverequest_update' receiverequest.pk %}">編集</a></td>
             <td><a href="{% url 'receiverequest_delete' receiverequest.pk %}">削除</a></td>
         </tr>

@@ -20,6 +20,7 @@
             <th scope="col">依頼先</th>
             <th scope="col">タイトル</th>
             <th scope="col">担当者</th>
+            <th scope="col">登録日</th>
             <th scope="col">編集</th>
             <th scope="col">削除</th>
         </tr>
@@ -31,6 +32,7 @@
             <td>{{ sendrequest.department }}</td>
             <td>{{ sendrequest.title }}</td>
             <td>{{ sendrequest.responder }}</td>
+            <td>{{ sendrequest.created_at.date }}</td>
             <td><a href="{% url 'sendrequest_update' sendrequest.pk %}">編集</a></td>
             <td><a href="{% url 'sendrequest_delete' sendrequest.pk %}">削除</a></td>
         </tr>
