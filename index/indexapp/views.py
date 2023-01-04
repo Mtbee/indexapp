@@ -2,7 +2,7 @@ from re import template
 from django.shortcuts import redirect, render
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
-from .models import ProgressNB, ProgressPB, Registration, Foods, SendRequest, ReceiveRequest, Roulette
+from .models import ProgressNB, ProgressPB, Registration, Foods, Foods46, SendRequest, ReceiveRequest, Roulette
 from django.http import HttpResponse
 import csv, random
 from django.contrib.auth.decorators import login_required
@@ -321,6 +321,95 @@ def Foods_csvdownload(request):
         "更新日"  
     ])
     for post in Foods.objects.all():
+        writer.writerow([
+            post.number,
+            post.code,
+            post.name,
+            post.category,
+            post.supplier,
+            post.cutomer,
+            post.description,
+            post.writer,
+            post.register,
+            post.update,
+            post.created_at.strftime("%Y/%m/%d"),
+            post.updated_at.strftime("%Y/%m/%d")
+            ])
+    return response
+
+
+# TF46期原料登録
+class Foods46Index(ListView):
+    model = Foods46
+    context_object_name = "foods46"
+    ordering = ["-number"]
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class Foods46Detail(DetailView):
+    model = Foods46
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class Foods46Create(CreateView):
+    model = Foods46
+    fields = "__all__"
+    success_url = reverse_lazy("foods46_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class Foods46Update(UpdateView):
+    model = Foods46
+    fields = "__all__"
+    success_url = reverse_lazy("foods46_list")
+
+    def get(self, request, **kwargs):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+class Foods46Delete(DeleteView):
+    model = Foods46
+    success_url = reverse_lazy("foods46_list")
+
+    def get(self, request, pk):
+        # アクティブユーザーでなければログインページ
+        if not request.user.is_active:
+            return redirect('/accounts/login/?next=%s' % request.path)
+        return super().get(request)
+
+def Foods46_csvdownload(request):
+    response = HttpResponse(content_type="text/csv; charset=cp932")
+    response['Content-Disposition'] = 'attachment; filename = TF46_registration_index.csv'
+    writer = csv.writer(response)
+    writer.writerow([
+        "No.",
+        "コード",
+        "品名",
+        "内容",
+        "仕入先",
+        "得意先",
+        "備考",
+        "依頼書作成",
+        "カクテル登録",
+        "リスト更新",
+        "登録日",
+        "更新日"  
+    ])
+    for post in Foods46.objects.all():
         writer.writerow([
             post.number,
             post.code,

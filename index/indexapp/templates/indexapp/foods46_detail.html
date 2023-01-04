@@ -1,0 +1,28 @@
+{% extends 'indexapp/base.html' %}
+
+{% block header %}
+    {% if request.user.is_authenticated %}
+        <p>{{ user.username }}さんがログイン中です</p>
+    {% endif %}
+    <h1>46期TF登録 詳細</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="detail">
+    <p>No. {{foods46.number}}</p>
+    <p>コード {{foods46.code}}</p>
+    <p>品名 {{foods46.name}}</p>
+    <p>内容 {{foods46.category}}</p>
+    <p>仕入先 {{foods46.supplier}}</p>
+    <p>得意先 {{foods46.cutomer}}</p>
+    <p>備考 {{foods46.description}}</p>
+    <p>依頼書作成 {{foods46.writer}}</p>
+    <p>カクテル登録 {{foods46.register}}</p>
+    <p>リスト更新 {{foods46.update}}</p>
+    <p>登録日 {{foods46.created_at.date}}</p>
+    <p>更新日 {{foods46.updated_at.date}}</p>
+</div>
+
+<p class="btn"><a href="{% url 'foods46_list' %}">一覧に戻る</a></p>
+
+{% endblock content %}

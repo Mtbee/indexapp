@@ -6,6 +6,7 @@ ProgressNBIndex, ProgressNBDetail, ProgressNBCreate, ProgressNBUpdate, ProgressN
 ProgressPBIndex, ProgressPBDetail, ProgressPBCreate, ProgressPBUpdate, ProgressPBDelete, ProgressPB_csvdownload,
 RegistrationIndex, RegistrationDetail, RegistrationCreate, RegistrationUpdate, RegistrationDelete, Registration_csvdownload,
 FoodsIndex, FoodsDetail, FoodsCreate, FoodsUpdate, FoodsDelete, Foods_csvdownload,
+Foods46Index, Foods46Detail, Foods46Create, Foods46Update, Foods46Delete, Foods46_csvdownload,
 SendRequestIndex, SendRequestDetail, SendRequestCreate, SendRequestUpdate, SendRequestDelete, SendRequest_csvdownload,
 ReceiveRequestIndex, ReceiveRequestDetail, ReceiveRequestCreate, ReceiveRequestUpdate, ReceiveRequestDelete, ReceiveRequest_csvdownload,
 RouletteIndex, RouletteCreate, RouletteDelete, index)
@@ -47,6 +48,14 @@ urlpatterns = [
     path("foods/update/<int:pk>", FoodsUpdate.as_view(), name="foods_update"),
     path("foods/delete/<int:pk>", FoodsDelete.as_view(), name="foods_delete"),
     path("foods/csv/", Foods_csvdownload, name="foods_csv"),
+
+    #TF46期原料登録
+    path("foods46/list", Foods46Index.as_view(), name="foods46_list"),
+    path("foods46/create", Foods46Create.as_view(), name="foods46_create"),
+    path("foods46/detail/<int:pk>", Foods46Detail.as_view(), name="foods46_detail"),
+    path("foods46/update/<int:pk>", Foods46Update.as_view(), name="foods46_update"),
+    path("foods46/delete/<int:pk>", Foods46Delete.as_view(), name="foods46_delete"),
+    path("foods46/csv/", Foods46_csvdownload, name="foods46_csv"),
   
     #物品サービス依頼(発信)
     path("sendrequest/list", SendRequestIndex.as_view(), name="sendrequest_list"),
