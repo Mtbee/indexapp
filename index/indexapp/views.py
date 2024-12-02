@@ -65,7 +65,7 @@ class ProgressNBDelete(DeleteView):
         return super().get(request)
 
 def ProgressNB_csvdownload(request):
-    response = HttpResponse(content_type="text/csv; charset=cp932")
+    response = HttpResponse(content_type="text/csv; charset=utf-8-sig")
     response['Content-Disposition'] = 'attachment; filename = progressnb_index.csv'
     writer = csv.writer(response)
     writer.writerow([
@@ -79,7 +79,7 @@ def ProgressNB_csvdownload(request):
         writer.writerow([
             post.number,
             post.code,
-            post.name,
+            post.name.replace("ℓ", "l"),
             post.created_at.strftime("%Y/%m/%d"),
             post.updated_at.strftime("%Y/%m/%d")])
     return response
